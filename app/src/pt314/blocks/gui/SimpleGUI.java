@@ -103,7 +103,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 
 	private void loadPuzzle() {
 		// TODO: do not use fixed file
-		File file = new File("res/puzzles/puzzle-001.txt");
+		File file = new File("res/puzzles/puzzle-003.txt");
 		try {
 			puzzle = Puzzle.load(file);
 			setUpBoard(puzzle);
