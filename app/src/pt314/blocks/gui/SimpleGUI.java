@@ -89,7 +89,11 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		aboutMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(SimpleGUI.this, "Sliding blocks!");
+				JOptionPane.showMessageDialog(SimpleGUI.this,
+						"Move the target block (yellow) to the rightmost column of the board.\n"
+						+ "Horizontal blocks (blue and yellow) can only move horizontally.\n"
+						+ "Vertical blocks (red) can only move vertically.",
+						"Sliding blocks!", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		helpMenu.add(aboutMenuItem);
