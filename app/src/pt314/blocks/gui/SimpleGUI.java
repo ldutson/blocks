@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -129,6 +131,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 				GridButton cell = new GridButton(row, col);
 				cell.setPreferredSize(new Dimension(64, 64));
 				cell.addActionListener(this);
+				cell.setBackground(Color.LIGHT_GRAY);
 				cell.setOpaque(true);
 				buttonGrid[row][col] = cell;
 				add(cell);
@@ -150,14 +153,18 @@ public class SimpleGUI extends JFrame implements ActionListener {
 			for (int col = 0; col < numCols; col++) {
 				Block block = board.getBlockAt(row, col);
 				JButton cell = buttonGrid[row][col];
-				if (block == null)
-					cell.setBackground(Color.LIGHT_GRAY);
-				else if (block instanceof TargetBlock)
-					cell.setBackground(Color.YELLOW);
-				else if (block instanceof HorizontalBlock)
-					cell.setBackground(Color.BLUE);
-				else if (block instanceof VerticalBlock)
-					cell.setBackground(Color.RED);
+				if (block == null) {
+					cell.setIcon(null);
+				}
+				else if (block instanceof TargetBlock) {
+					cell.setIcon(new ImageIcon("res/images/block-yellow.png"));
+				}
+				else if (block instanceof HorizontalBlock) {
+					cell.setIcon(new ImageIcon("res/images/block-blue.png"));
+				}
+				else if (block instanceof VerticalBlock) {
+					cell.setIcon(new ImageIcon("res/images/block-red.png"));
+				}
 			}
 		}
 		repaint();
