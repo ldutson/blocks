@@ -12,7 +12,7 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 		
-		Board board = new Board(5, 3);
+		Board board = new Board(3, 5);
 		
 		Block block1 = new HorizontalBlock();
 		

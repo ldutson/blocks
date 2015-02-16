@@ -8,22 +8,22 @@ import pt314.blocks.game.block.VerticalBlock;
 
 public class Board {
 
-	private int width;
-	private int height;
+	private int numRows;
+	private int numCols;
 	private Block[][] blocks;
 	
-	public Board(int width, int height) {
-		this.width = width;
-		this.height = height;
-		blocks = new Block[height][width];
+	public Board(int numRows, int numCols) {
+		this.numRows = numRows;
+		this.numCols = numCols;
+		blocks = new Block[numRows][numCols];
 	}
 	
 	public int getWidth() {
-		return width;
+		return numCols;
 	}
 	
 	public int getHeight() {
-		return height;
+		return numRows;
 	}
 	
 	/**
@@ -91,9 +91,9 @@ public class Board {
 	 * Check if a location is inside the board.
 	 */
 	public boolean isWithinBounds(int row, int col) {
-		if (row < 0 || row >= height)
+		if (row < 0 || row >= numRows)
 			return false;
-		if (col < 0 || col >= width)
+		if (col < 0 || col >= numCols)
 			return false;
 		return true;
 	}
@@ -102,8 +102,8 @@ public class Board {
 	 * Print the board to standard out.
 	 */
 	public void print() {
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
 				Block block = blocks[row][col];
 				char ch = '.';
 				if (block instanceof TargetBlock)

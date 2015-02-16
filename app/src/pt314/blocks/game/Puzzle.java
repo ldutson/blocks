@@ -58,7 +58,7 @@ public class Puzzle {
 		int numRows = Integer.parseInt(sizeStr[0]); 
 		int numCols = Integer.parseInt(sizeStr[1]);
 
-		Board board = new Board(numCols, numRows);
+		Board board = new Board(numRows, numCols);
 		for (int row = 0; row < numRows; row++) {
 			String currentRow = in.readLine();
 			for (int col = 0; col < numCols; col++) {
