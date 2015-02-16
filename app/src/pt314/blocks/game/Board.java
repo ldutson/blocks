@@ -35,8 +35,14 @@ public class Board {
 		blocks[row][col] = block;
 	}
 	
-	// TODO: Check for out of bounds
+	/**
+	 * Get block from a specific location.
+	 * 
+	 * Returns <code>null</code> if the location is empty of if it is out of bounds. 
+	 */
 	public Block getBlockAt(int row, int col) {
+		if (!isWithinBounds(row, col))
+			return null;
 		return blocks[row][col];
 	}
 
