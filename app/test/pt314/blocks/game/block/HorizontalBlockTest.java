@@ -1,20 +1,24 @@
-package pt314.blocks.game;
+package pt314.blocks.game.block;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import pt314.blocks.game.Direction;
+import pt314.blocks.game.block.Block;
+import pt314.blocks.game.block.HorizontalBlock;
+
 /**
- * JUnit tests for <code>TargetBlock</code>.
+ * JUnit tests for <code>HorizontalBlock</code>.
  */
-public class TargetBlockTest {
+public class HorizontalBlockTest {
 	
 	private Block block;
 
 	@Before
 	public void setUp() {
-		block = new TargetBlock();
+		block = new HorizontalBlock();
 	}
 
 	@Test

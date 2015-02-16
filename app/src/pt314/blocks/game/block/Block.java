@@ -1,4 +1,6 @@
-package pt314.blocks.game;
+package pt314.blocks.game.block;
+
+import pt314.blocks.game.Direction;
 
 /**
  * Generic block.
