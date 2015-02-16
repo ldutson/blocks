@@ -10,7 +10,7 @@ import pt314.blocks.game.block.HorizontalBlock;
  */
 public class Test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		Board board = new Board(5, 3);
 		
@@ -20,8 +20,13 @@ public class Test {
 		
 		board.print();
 		for (int i = 0; i < 5; i++) {
-			boolean result = board.moveBlock(0, i, Direction.RIGHT, 1);
-			System.out.println(result);
+			try {
+				boolean result = board.moveBlock(0, i, Direction.RIGHT, 1);
+				System.out.println(result);
+			}
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 			board.print();
 		}
 	}

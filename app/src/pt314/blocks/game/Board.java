@@ -52,61 +52,38 @@ public class Board {
 	 * @param dir direction of movement.
 	 * @param dist absolute movement distance.
 	 * 
-	 * @return <code>true</code> if and only if the move is possible.
+	 * @return <code>true</code> if and only if the block is moved.
+	 * 
+	 * @throws Exception if any of the following is true:
+	 *         - there is no block at the specified location,
+	 *         - the block cannot move in the specified direction,
+	 *         - the new destination is out of the bounds of the board, or
+	 *         - the path to the destination is not clear.
 	 */
-	public boolean moveBlock(int row, int col, Direction dir, int dist) {
+	public boolean moveBlock(int row, int col, Direction dir, int dist) throws Exception {
 		
-		// TODO: throw exception if move is invalid, instead of using return value
+		if (dist == 0)
+			return false;
 		
 		Block block = blocks[row][col];
 
-		// no block at specified location
 		if (block == null)
-			return false;
+			throw new Exception("No block to move.");
 		
-		// block cannot move in the specified direction
 		if (!block.isValidDirection(dir))
-			return false;
+			throw new Exception("Invalid direction: " + dir);
 		
-		// determine new location
-		int newRow = row;
-		int newCol = col;
-		if (dir == Direction.UP)
-			newRow -= dist;
-		else if (dir == Direction.DOWN)
-			newRow += dist;
-		else if (dir == Direction.LEFT)
-			newCol -= dist;
-		else if (dir == Direction.RIGHT)
-			newCol += dist;
-
-		// destination out of bounds
+		int newRow = Move.getNewRow(row, dir, dist);
+		int newCol = Move.getNewCol(col, dir, dist);
 		if (!isWithinBounds(newRow, newCol))
-			return false;
+			throw new Exception("Destination out of bounds: "
+					+ "row=" + newRow + ", col=" + newCol);
 		
-		int dx = 0;
-		int dy = 0;
-		if (dir == Direction.UP)
-			dy = -1;
-		else if (dir == Direction.DOWN)
-			dy = 1;
-		else if (dir == Direction.LEFT)
-			dx = -1;
-		else if (dir == Direction.RIGHT)
-			dx = 1;
-		
-		// check all cells from block location to destination
-		int tmpRow = row;
-		int tmpCol = col;
-		for (int i = 0; i < dist; i++) {
-			tmpRow += dy;
-			tmpCol += dx;
-			if (blocks[tmpRow][tmpCol] != null)
-				return false; // another block in the way
-		}
-		
-		blocks[newRow][newCol] = blocks[row][col];
-		blocks[row][col] = null;
+		if (!Move.isPathClear(this, row, col, dir, dist))
+			throw new Exception("Path is not clear: block in the way.");
+
+		placeBlockAt(block, newRow, newCol);
+		placeBlockAt(null, row, col);
 		return true;
 	}
 	

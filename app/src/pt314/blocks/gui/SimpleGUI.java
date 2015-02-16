@@ -103,7 +103,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 
 	private void loadPuzzle() {
 		// TODO: do not use fixed file
-		File file = new File("res/puzzles/puzzle-003.txt");
+		File file = new File("res/puzzles/puzzle-001.txt");
 		try {
 			puzzle = Puzzle.load(file);
 			setUpBoard(puzzle);
@@ -246,12 +246,15 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		int dist = Math.abs(vertDist + horzDist);
 		
 		Board board = puzzle.getBoard();
-		if (!board.moveBlock(selectedBlockRow, selectedBlockCol, dir, dist)) {
-			System.err.println("Invalid move!");
+		try {
+			if (board.moveBlock(selectedBlockRow, selectedBlockCol, dir, dist)) {
+				selectedBlock = null;
+				updateUI();
+			}
 		}
-		else {
-			selectedBlock = null;
-			updateUI();
+		catch (Exception e) {
+			System.err.println("Invalid move!");
+			System.err.println(e.getMessage());
 		}
 	}
 
