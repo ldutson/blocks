@@ -189,6 +189,11 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		}
 		else {
 			moveSelectedBlockTo(row, col);
+			if (puzzle.isSolved()) {
+				JOptionPane.showMessageDialog(SimpleGUI.this,
+						"Puzzle solved! Good job!", "Puzzle solved!",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 

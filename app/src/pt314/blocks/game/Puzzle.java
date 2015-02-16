@@ -27,6 +27,24 @@ public class Puzzle {
 	}
 
 	/**
+	 * A puzzle is solved when the target block reaches
+	 * the rightmost column of the board.
+	 */
+	public boolean isSolved() {
+		// determine target block column
+		// TODO: simplify this
+		int targetCol = 0;
+		for (int row = 0; row < board.getHeight(); row++) {
+			for (int col = 0; col < board.getWidth(); col++) {
+				Block block = board.getBlockAt(row, col);
+				if (block instanceof TargetBlock)
+					targetCol = col;
+			}
+		}
+		return targetCol == board.getWidth() - 1;
+	}
+
+	/**
 	 * Load a puzzle from a file.
 	 * 
 	 * @throws Exception if there is a problem reading the file
