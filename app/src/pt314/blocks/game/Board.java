@@ -6,13 +6,13 @@ import pt314.blocks.game.block.HorizontalBlock;
 import pt314.blocks.game.block.TargetBlock;
 import pt314.blocks.game.block.VerticalBlock;
 
-public class GameBoard {
+public class Board {
 
 	private int width;
 	private int height;
 	private Block[][] blocks;
 	
-	public GameBoard(int width, int height) {
+	public Board(int width, int height) {
 		this.width = width;
 		this.height = height;
 		blocks = new Block[height][width];

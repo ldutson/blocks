@@ -1,6 +1,6 @@
 package pt314.blocks;
 
-import pt314.blocks.game.GameBoard;
+import pt314.blocks.game.Board;
 import pt314.blocks.game.block.Block;
 import pt314.blocks.game.block.Direction;
 import pt314.blocks.game.block.HorizontalBlock;
@@ -12,7 +12,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		GameBoard board = new GameBoard(5, 3);
+		Board board = new Board(5, 3);
 		
 		Block block1 = new HorizontalBlock();
 		

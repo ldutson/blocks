@@ -13,7 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import pt314.blocks.game.GameBoard;
+import pt314.blocks.game.Board;
 import pt314.blocks.game.block.Block;
 import pt314.blocks.game.block.Direction;
 import pt314.blocks.game.block.HorizontalBlock;
@@ -28,7 +28,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 	private static final int NUM_ROWS = 5;
 	private static final int NUM_COLS = 5;
 
-	private GameBoard board;
+	private Board board;
 	
 	// currently selected block
 	private Block selectedBlock;
@@ -97,7 +97,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 	}
 	
 	private void initBoard() {
-		board = new GameBoard(NUM_COLS, NUM_ROWS);
+		board = new Board(NUM_COLS, NUM_ROWS);
 		buttonGrid = new GridButton[NUM_ROWS][NUM_COLS];
 		
 		setLayout(new GridLayout(NUM_ROWS, NUM_COLS));
