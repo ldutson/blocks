@@ -13,9 +13,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import pt314.blocks.game.Direction;
 import pt314.blocks.game.GameBoard;
 import pt314.blocks.game.block.Block;
+import pt314.blocks.game.block.Direction;
 import pt314.blocks.game.block.HorizontalBlock;
 import pt314.blocks.game.block.TargetBlock;
 import pt314.blocks.game.block.VerticalBlock;

@@ -1,6 +1,5 @@
 package pt314.blocks.game.block;
 
-import pt314.blocks.game.Direction;
 
 /**
  * This type of block can only move vertically (up or down).

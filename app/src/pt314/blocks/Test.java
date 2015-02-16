@@ -1,8 +1,8 @@
 package pt314.blocks;
 
-import pt314.blocks.game.Direction;
 import pt314.blocks.game.GameBoard;
 import pt314.blocks.game.block.Block;
+import pt314.blocks.game.block.Direction;
 import pt314.blocks.game.block.HorizontalBlock;
 
 /**
