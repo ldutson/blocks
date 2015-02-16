@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import pt314.blocks.game.Board;
+import pt314.blocks.game.Puzzle;
 import pt314.blocks.game.block.Block;
 import pt314.blocks.game.block.Direction;
 import pt314.blocks.game.block.HorizontalBlock;
@@ -25,10 +27,7 @@ import pt314.blocks.game.block.VerticalBlock;
  */
 public class SimpleGUI extends JFrame implements ActionListener {
 
-	private static final int NUM_ROWS = 5;
-	private static final int NUM_COLS = 5;
-
-	private Board board;
+	private Puzzle puzzle;
 	
 	// currently selected block
 	private Block selectedBlock;
@@ -48,7 +47,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		
 		initMenus();
 		
-		initBoard();
+		loadPuzzle();
 		
 		pack();
 		setVisible(true);
@@ -68,7 +67,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		newGameMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(SimpleGUI.this, "Coming soon...");
+				loadPuzzle();
 			}
 		});
 		gameMenu.add(newGameMenuItem);
@@ -95,14 +94,38 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		
 		setJMenuBar(menuBar);
 	}
+
+	private void loadPuzzle() {
+		// TODO: do not use fixed file
+		File file = new File("res/puzzles/puzzle-001.txt");
+		try {
+			puzzle = Puzzle.load(file);
+			setUpBoard(puzzle);
+		}
+		catch (Exception e) {
+			System.err.println("Error loading puzzle from file: " + file);
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(SimpleGUI.this,
+					"Error loading puzzle.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
-	private void initBoard() {
-		board = new Board(NUM_COLS, NUM_ROWS);
-		buttonGrid = new GridButton[NUM_ROWS][NUM_COLS];
+	private void setUpBoard(Puzzle puzzle) {
+
+		// Remove previous board
+		getContentPane().removeAll();
+		getContentPane().revalidate();
+
+		Board board = puzzle.getBoard();
+		int numRows = board.getHeight();
+		int numCols = board.getWidth();
 		
-		setLayout(new GridLayout(NUM_ROWS, NUM_COLS));
-		for (int row = 0; row < NUM_ROWS; row++) {
-			for (int col = 0; col < NUM_COLS; col++) {
+		// Setup new board
+		buttonGrid = new GridButton[numRows][numCols];
+		setLayout(new GridLayout(numRows, numCols));
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
 				GridButton cell = new GridButton(row, col);
 				cell.setPreferredSize(new Dimension(64, 64));
 				cell.addActionListener(this);
@@ -111,22 +134,20 @@ public class SimpleGUI extends JFrame implements ActionListener {
 				add(cell);
 			}
 		}
-		
-		// add some blocks for testing...
-		board.placeBlockAt(new HorizontalBlock(), 0, 0);
-		board.placeBlockAt(new HorizontalBlock(), 4, 4);
-		board.placeBlockAt(new VerticalBlock(), 1, 3);
-		board.placeBlockAt(new VerticalBlock(), 3, 1);
-		board.placeBlockAt(new TargetBlock(), 2, 2);
-		
+
 		updateUI();
 	}
 
-	// Update display based on the state of the board...
+	/**
+	 * Update display based on the state of the board...
+	 */
 	// TODO: make this more efficient
 	private void updateUI() {
-		for (int row = 0; row < NUM_ROWS; row++) {
-			for (int col = 0; col < NUM_COLS; col++) {
+		Board board = puzzle.getBoard();
+		int numRows = board.getHeight();
+		int numCols = board.getWidth();
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
 				Block block = board.getBlockAt(row, col);
 				JButton cell = buttonGrid[row][col];
 				if (block == null)
@@ -139,6 +160,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 					cell.setBackground(Color.RED);
 			}
 		}
+		repaint();
 	}
 
 	/**
@@ -161,6 +183,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		int col = cell.getCol();
 		System.out.println("Clicked (" + row + ", " + col + ")");
 		
+		Board board = puzzle.getBoard();
 		if (selectedBlock == null || board.getBlockAt(row, col) != null) {
 			selectBlockAt(row, col);
 		}
@@ -179,6 +202,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 	 * the previous selection is replaced.
 	 */
 	private void selectBlockAt(int row, int col) {
+		Board board = puzzle.getBoard();
 		Block block = board.getBlockAt(row, col);
 		if (block != null) {
 			selectedBlock = block;
@@ -205,6 +229,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		Direction dir = getMoveDirection(selectedBlockRow, selectedBlockCol, row, col);
 		int dist = Math.abs(vertDist + horzDist);
 		
+		Board board = puzzle.getBoard();
 		if (!board.moveBlock(selectedBlockRow, selectedBlockCol, dir, dist)) {
 			System.err.println("Invalid move!");
 		}
