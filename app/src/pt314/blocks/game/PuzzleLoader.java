@@ -9,6 +9,9 @@ import pt314.blocks.game.block.HorizontalBlock;
 import pt314.blocks.game.block.TargetBlock;
 import pt314.blocks.game.block.VerticalBlock;
 
+/**
+ * Loads puzzles from files.
+ */
 public class PuzzleLoader {
 
 	/**

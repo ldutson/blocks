@@ -10,6 +10,7 @@ import pt314.blocks.game.block.VerticalBlockTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+	BoardTest.class,
 	HorizontalBlockTest.class,
 	VerticalBlockTest.class,
 	TargetBlockTest.class
