@@ -18,12 +18,12 @@ public class Board {
 		blocks = new Block[numRows][numCols];
 	}
 	
-	public int getWidth() {
-		return numCols;
+	public int getNumRows() {
+		return numRows;
 	}
 	
-	public int getHeight() {
-		return numRows;
+	public int getNumCols() {
+		return numCols;
 	}
 	
 	/**

@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 
 import pt314.blocks.game.Board;
 import pt314.blocks.game.Puzzle;
+import pt314.blocks.game.PuzzleLoader;
 import pt314.blocks.game.block.Block;
 import pt314.blocks.game.block.Direction;
 import pt314.blocks.game.block.HorizontalBlock;
@@ -105,7 +106,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		// TODO: do not use fixed file
 		File file = new File("res/puzzles/puzzle-001.txt");
 		try {
-			puzzle = Puzzle.load(file);
+			puzzle = PuzzleLoader.load(file);
 			setUpBoard(puzzle);
 		}
 		catch (Exception e) {
@@ -124,8 +125,8 @@ public class SimpleGUI extends JFrame implements ActionListener {
 		getContentPane().revalidate();
 
 		Board board = puzzle.getBoard();
-		int numRows = board.getHeight();
-		int numCols = board.getWidth();
+		int numRows = board.getNumRows();
+		int numCols = board.getNumCols();
 		
 		// Setup new board
 		buttonGrid = new GridButton[numRows][numCols];
@@ -151,8 +152,8 @@ public class SimpleGUI extends JFrame implements ActionListener {
 	// TODO: make this more efficient
 	private void updateUI() {
 		Board board = puzzle.getBoard();
-		int numRows = board.getHeight();
-		int numCols = board.getWidth();
+		int numRows = board.getNumRows();
+		int numCols = board.getNumCols();
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				Block block = board.getBlockAt(row, col);
