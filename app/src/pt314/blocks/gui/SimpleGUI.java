@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -103,14 +104,17 @@ public class SimpleGUI extends JFrame implements ActionListener {
 	}
 
 	private void loadPuzzle() {
-		// TODO: do not use fixed file
-		File file = new File("res/puzzles/puzzle-001.txt");
+		
+		// get random puzzle number
+		Random rand = new Random();
+		int puzzleNumber = rand.nextInt(3) + 1;
+		
 		try {
-			puzzle = PuzzleLoader.load(file);
+			puzzle = PuzzleLoader.load(puzzleNumber);
 			setUpBoard(puzzle);
 		}
 		catch (Exception e) {
-			System.err.println("Error loading puzzle from file: " + file);
+			System.err.println("Error loading puzzle: " + puzzleNumber);
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(SimpleGUI.this,
 					"Error loading puzzle.", "Error",
@@ -143,6 +147,7 @@ public class SimpleGUI extends JFrame implements ActionListener {
 			}
 		}
 
+		pack();
 		updateUI();
 	}
 

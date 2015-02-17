@@ -14,6 +14,21 @@ import pt314.blocks.game.block.VerticalBlock;
  */
 public class PuzzleLoader {
 
+	private static final String PUZZLE_FOLDER = "res/puzzles/";
+	
+	/**
+	 * Load a puzzle given its number.
+	 * 
+	 * @throws Exception if there is a problem reading the file
+	 *         or the format is invalid.
+	 */
+	public static Puzzle load(int puzzleNumber) throws Exception {
+		String number = String.format("%03d", puzzleNumber);
+		String path = PUZZLE_FOLDER + "puzzle-" + number + ".txt"; 
+		File file = new File(path);
+		return load(file);
+	}
+
 	/**
 	 * Load a puzzle from a file.
 	 * 
